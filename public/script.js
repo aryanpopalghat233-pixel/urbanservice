@@ -69,6 +69,43 @@ document.getElementById('start-worker').addEventListener('click', () => {
     alert(data.message);
     showTrackingSection();
 }
+
+    // Enhanced Booking Interaction
+async function startBooking(serviceName, imageUrl) {
+    // 1. Visual feedback for the user
+    const confirmBooking = confirm(`Do you want to book ${serviceName}? Our professional will be assigned immediately.`);
+    
+    if (confirmBooking) {
+        // 2. Simulate an API Call to your backend
+        try {
+            const response = await fetch('/api/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ service: serviceName, time: new Date() })
+            });
+
+            // 3. Update the UI to show tracking
+            alert(`Great! A technician has been assigned for your ${serviceName}.`);
+            
+            // Show the tracking section
+            document.getElementById('tracking-container').classList.remove('hidden');
+            document.getElementById('worker-name').innerText = "Assigning Professional...";
+            document.getElementById('status-text').innerText = "Connecting to GPS...";
+            
+            // Scroll smoothly to the map
+            document.getElementById('tracking-container').scrollIntoView({ behavior: 'smooth' });
+            
+            // Trigger Map Resize (Leaflet needs this when a container goes from hidden -> block)
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 500);
+
+        } catch (error) {
+            console.error("Booking failed", error);
+            alert("Something went wrong. Please check your server connection.");
+        }
+    }
+}
 });
 
 
