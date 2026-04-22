@@ -1,41 +1,24 @@
-/* FIXED: Map needs a height to show up! */
 #map {
-    height: 400px; /* Essential for Leaflet */
+    height: 400px;
     width: 100%;
-    background: #e5e7eb; /* Light grey placeholder while loading */
+    border-radius: 1.5rem;
+    border: 1px solid #e5e7eb;
 }
 
-/* Card Container */
-.logo-card {
-    @apply flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 cursor-pointer;
+/* Informative Cards */
+.info-card {
+    @apply bg-white p-5 rounded-2xl border border-gray-100 shadow-sm cursor-pointer transition-all duration-300;
 }
 
-.logo-card:hover {
-    @apply shadow-xl border-blue-200 -translate-y-1;
+.info-card:hover {
+    @apply shadow-xl border-blue-400 -translate-y-2;
 }
 
-/* Logo Circular Wrapper */
-.logo-wrapper {
-    @apply w-20 h-20 rounded-full flex items-center justify-center transition-transform duration-300;
+.page {
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-.logo-card:hover .logo-wrapper {
-    @apply scale-110;
-}
-
-/* Map specific styling (MUST HAVE HEIGHT) */
-#map {
-    height: 450px;
-    width: 100%;
-    background: #f8fafc;
-}
-
-/* Soft transition for showing map */
-#tracking-container {
-    animation: slideUp 0.4s ease-out;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
