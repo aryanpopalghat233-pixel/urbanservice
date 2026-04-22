@@ -3,24 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiceTrack - Live Home Services</title>
-    <link rel="stylesheet" href="style.css">
+    <title>HomeService Pro | Quality Services at Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <div class="app-container">
-        <header>
-            <h1>ServiceTrack Live</h1>
-            <div id="status-bar">Status: Waiting for location...</div>
-        </header>
+<body class="bg-gray-50">
 
-        <div id="map"></div>
-
-        <div class="controls">
-            <button id="start-worker" class="btn worker">I am a Worker (Start Tracking)</button>
-            <button id="view-customer" class="btn customer">I am a Customer (View Map)</button>
+    <nav class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="text-2xl font-bold text-blue-600 tracking-tight">HomeService<span class="text-gray-800">Pro</span></div>
+            <div class="hidden md:flex space-x-8 font-medium text-gray-600">
+                <a href="#" class="hover:text-blue-600">Home</a>
+                <a href="#" class="hover:text-blue-600">My Bookings</a>
+                <a href="#" class="hover:text-blue-600">Help</a>
+            </div>
+            <button class="bg-black text-white px-5 py-2 rounded-lg font-medium">Login / Sign Up</button>
         </div>
-    </div>
+    </nav>
+
+    <section class="bg-white py-12 border-b">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Home services, on demand.</h1>
+            <div class="relative max-w-xl mx-auto">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-400"></i>
+                <input type="text" placeholder="Search for 'AC Repair', 'Cleaning'..." class="w-full pl-12 pr-4 py-4 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-lg">
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold mb-8">What are you looking for?</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-16">
+            <div class="service-card" onclick="startBooking('AC Repair')">
+                <div class="icon-box bg-blue-100 text-blue-600"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <p>AC Repair</p>
+            </div>
+            <div class="service-card" onclick="startBooking('Cleaning')">
+                <div class="icon-box bg-green-100 text-green-600"><i class="fa-solid fa-broom"></i></div>
+                <p>Cleaning</p>
+            </div>
+            <div class="service-card" onclick="startBooking('Electrician')">
+                <div class="icon-box bg-yellow-100 text-yellow-600"><i class="fa-solid fa-bolt"></i></div>
+                <p>Electrician</p>
+            </div>
+            <div class="service-card" onclick="startBooking('Plumbing')">
+                <div class="icon-box bg-red-100 text-red-600"><i class="fa-solid fa-faucet"></i></div>
+                <p>Plumbing</p>
+            </div>
+            <div class="service-card" onclick="startBooking('Painting')">
+                <div class="icon-box bg-purple-100 text-purple-600"><i class="fa-solid fa-paint-roller"></i></div>
+                <p>Painting</p>
+            </div>
+            <div class="service-card" onclick="startBooking('Appliance')">
+                <div class="icon-box bg-orange-100 text-orange-600"><i class="fa-solid fa-tv"></i></div>
+                <p>Appliance</p>
+            </div>
+        </div>
+
+        <div id="tracking-container" class="hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Track Your Professional</h2>
+                <button onclick="closeTracking()" class="text-red-500 font-bold">Close Map</button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border">
+                <div id="map" style="height: 500px; width: 100%;"></div>
+                <div class="p-6 bg-white flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold">JD</div>
+                        <div>
+                            <h4 class="font-bold text-lg" id="worker-name">Assigning...</h4>
+                            <p class="text-gray-500" id="status-text">Waiting for worker to start...</p>
+                        </div>
+                    </div>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold"><i class="fa-solid fa-phone mr-2"></i> Call</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 p-6 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300">
+            <p class="text-sm font-bold text-gray-500 mb-4">DEVELOPER CONTROLS</p>
+            <div class="flex flex-wrap gap-4">
+                <button id="start-worker" class="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">Simulate Worker Movement</button>
+                <button onclick="showTrackingSection()" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600">View Map (Customer)</button>
+            </div>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/socket.io/socket.io.js"></script>
