@@ -3,96 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeService Pro | Quality Services at Home</title>
+    <title>ServicePro | Home Services & Careers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50">
 
     <nav class="bg-white border-b sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="text-2xl font-bold text-blue-600 tracking-tight">HomeService<span class="text-gray-800">Pro</span></div>
-            <div class="hidden md:flex space-x-8 font-medium text-gray-600">
-                <a href="#" class="hover:text-blue-600">Home</a>
-                <a href="#" class="hover:text-blue-600">My Bookings</a>
-                <a href="#" class="hover:text-blue-600">Help</a>
+            <div class="text-2xl font-bold text-blue-600 cursor-pointer" onclick="showPage('customer')">HomeService<span class="text-gray-800">Pro</span></div>
+            <div class="flex space-x-6 items-center">
+                <button onclick="showPage('worker-reg')" class="text-blue-600 font-semibold hover:text-blue-800">Join as a Pro</button>
+                <button class="bg-black text-white px-4 py-2 rounded-lg text-sm">Login</button>
             </div>
-            <button class="bg-black text-white px-5 py-2 rounded-lg font-medium">Login / Sign Up</button>
         </div>
     </nav>
 
-    <section class="bg-white py-12 border-b">
-        <div class="max-w-4xl mx-auto text-center px-4">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Home services, on demand.</h1>
-            <div class="relative max-w-xl mx-auto">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-400"></i>
-                <input type="text" placeholder="Search for 'AC Repair', 'Cleaning'..." class="w-full pl-12 pr-4 py-4 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-lg">
-            </div>
-        </div>
-    </section>
-
-<main class="max-w-6xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800">Available Services</h2>
-    
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-        
-        <div class="logo-card group" onclick="startBooking('AC Repair')">
-            <div class="logo-wrapper bg-blue-50 text-blue-600">
-                <i class="fa-solid fa-snowflake text-3xl"></i>
-            </div>
-            <h3 class="font-bold text-gray-700 text-sm mt-3">AC Repair</h3>
-            <p class="text-xs text-gray-400">Expert cooling help</p>
-        </div>
-
-        <div class="logo-card group" onclick="startBooking('Cleaning')">
-            <div class="logo-wrapper bg-green-50 text-green-600">
-                <i class="fa-solid fa-broom text-3xl"></i>
-            </div>
-            <h3 class="font-bold text-gray-700 text-sm mt-3">Deep Cleaning</h3>
-            <p class="text-xs text-gray-400">Sparkling homes</p>
-        </div>
-
-        <div class="logo-card group" onclick="startBooking('Electrician')">
-            <div class="logo-wrapper bg-yellow-50 text-yellow-600">
-                <i class="fa-solid fa-bolt text-3xl"></i>
-            </div>
-            <h3 class="font-bold text-gray-700 text-sm mt-3">Electrician</h3>
-            <p class="text-xs text-gray-400">Wiring & Fixes</p>
-        </div>
-
-        <div class="logo-card group" onclick="startBooking('Plumbing')">
-            <div class="logo-wrapper bg-red-50 text-red-600">
-                <i class="fa-solid fa-faucet-drip text-3xl"></i>
-            </div>
-            <h3 class="font-bold text-gray-700 text-sm mt-3">Plumbing</h3>
-            <p class="text-xs text-gray-400">Leak & Pipe repair</p>
-        </div>
-
-    </div>
-
-    <div id="tracking-container" class="hidden">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold text-gray-800">Live Professional Tracking</h2>
-            <button onclick="document.getElementById('tracking-container').classList.add('hidden')" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
-            <div id="map"></div> 
-            <div class="p-5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">P</div>
-                    <div>
-                        <p class="text-xs text-gray-400 font-bold uppercase">Assigned Pro</p>
-                        <p class="font-bold text-gray-800" id="worker-name">Locating...</p>
+    <div id="customer-page" class="page">
+        <section class="max-w-6xl mx-auto px-4 py-10">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Book a Professional</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="info-card" onclick="startBooking('AC Repair', 29)">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-snowflake text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-green-600 font-bold">$29</span>
+                            <p class="text-[10px] text-gray-400 uppercase">Fixed Price</p>
+                        </div>
                     </div>
+                    <h3 class="font-bold text-gray-800">AC Power Checkup</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.8</span>
+                        <span class="text-gray-400 text-xs">(12k reviews)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 45 mins est. time</p>
                 </div>
-                <button class="bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg hover:bg-blue-700">Call Now</button>
-            </div>
-        </div>
-    </div>
-</main>
 
+                <div class="info-card" onclick="startBooking('Cleaning', 55)">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-broom text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-green-600 font-bold">$55</span>
+                            <p class="text-[10px] text-gray-400 uppercase">Fixed Price</p>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Full Home Cleaning</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.9</span>
+                        <span class="text-gray-400 text-xs">(8k reviews)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 3-4 hours est. time</p>
+                </div>
+
+                <div class="info-card" onclick="startBooking('Electrician', 15)">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-bolt text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-green-600 font-bold">$15</span>
+                            <p class="text-[10px] text-gray-400 uppercase">Per Visit</p>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Switch & Socket Fix</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.7</span>
+                        <span class="text-gray-400 text-xs">(15k reviews)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 30 mins est. time</p>
+                </div>
+
+                <div class="info-card" onclick="startBooking('Plumbing', 20)">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-faucet text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-green-600 font-bold">$20</span>
+                            <p class="text-[10px] text-gray-400 uppercase">Starts at</p>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-gray-800">Tap Repair / Leakage</h3>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.6</span>
+                        <span class="text-gray-400 text-xs">(10k reviews)</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 40 mins est. time</p>
+                </div>
+            </div>
+
+            <div id="tracking-container" class="hidden mt-12">
+                <h2 class="text-xl font-bold mb-4">Live Tracking</h2>
+                <div id="map"></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="worker-reg-page" class="page hidden">
+        <section class="max-w-2xl mx-auto px-4 py-16">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Join as a Professional</h2>
+                <p class="text-gray-500 mb-8">Earn money on your schedule. Share your location to get jobs.</p>
+                
+                <form id="worker-form" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-sm font-bold text-gray-700">Full Name</label>
+                            <input type="text" id="worker-name-input" placeholder="e.g. John Doe" class="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="text-sm font-bold text-gray-700">Service Category</label>
+                            <select class="w-full p-3 bg-gray-50 border rounded-xl outline-none">
+                                <option>AC Repair</option>
+                                <option>Cleaning</option>
+                                <option>Electrician</option>
+                                <option>Plumbing</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-blue-50 border border-blue-100 rounded-xl">
+                        <p class="text-sm text-blue-700 mb-4 font-medium"><i class="fa-solid fa-location-crosshairs mr-2"></i> To receive jobs, you must enable live tracking.</p>
+                        <button type="button" id="worker-start-gps" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-blue-200">Start Sharing Live Location</button>
+                    </div>
+
+                    <p id="worker-status" class="text-center text-sm font-bold text-gray-400 uppercase tracking-widest">Status: Offline</p>
+                </form>
+            </div>
+        </section>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/socket.io/socket.io.js"></script>
