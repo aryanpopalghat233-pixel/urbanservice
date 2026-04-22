@@ -59,4 +59,17 @@ document.getElementById('start-worker').addEventListener('click', () => {
 
         }, (err) => alert("Error: " + err.message), { enableHighAccuracy: true });
     }
+    async function startBooking(serviceName) {
+    const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service: serviceName })
+    });
+    const data = await response.json();
+    alert(data.message);
+    showTrackingSection();
+}
 });
+
+
+
