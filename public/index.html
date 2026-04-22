@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceTrack - Live Home Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>ServiceTrack Live</h1>
+            <div id="status-bar">Status: Waiting for location...</div>
+        </header>
+
+        <div id="map"></div>
+
+        <div class="controls">
+            <button id="start-worker" class="btn worker">I am a Worker (Start Tracking)</button>
+            <button id="view-customer" class="btn customer">I am a Customer (View Map)</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
