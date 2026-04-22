@@ -1,24 +1,29 @@
+/* Urban Company Card Style */
+.uc-card {
+    @apply flex flex-col items-center justify-center p-6 bg-white border border-gray-100 rounded-2xl cursor-pointer transition-all duration-300 shadow-sm hover:shadow-xl hover:border-blue-200;
+}
+
+.uc-icon {
+    @apply w-16 h-16 rounded-2xl flex items-center justify-center text-3xl transition-transform duration-300;
+}
+
+.uc-card:hover .uc-icon {
+    @apply scale-110;
+}
+
+/* Map Drawer Logic */
+#tracking-drawer.active {
+    @apply translate-y-0;
+}
+
 #map {
-    height: 400px;
+    height: 250px;
     width: 100%;
-    border-radius: 1.5rem;
-    border: 1px solid #e5e7eb;
+    z-index: 1;
 }
 
-/* Informative Cards */
-.info-card {
-    @apply bg-white p-5 rounded-2xl border border-gray-100 shadow-sm cursor-pointer transition-all duration-300;
-}
-
-.info-card:hover {
-    @apply shadow-xl border-blue-400 -translate-y-2;
-}
-
-.page {
-    animation: fadeIn 0.4s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Custom Marker Styling */
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
 }
