@@ -3,141 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServicePro | Home Services & Careers</title>
+    <title>ServicePro | Home Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50">
+<body class="bg-white">
 
-    <nav class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="text-2xl font-bold text-blue-600 cursor-pointer" onclick="showPage('customer')">HomeService<span class="text-gray-800">Pro</span></div>
-            <div class="flex space-x-6 items-center">
-                <button onclick="showPage('worker-reg')" class="text-blue-600 font-semibold hover:text-blue-800">Join as a Pro</button>
-                <button class="bg-black text-white px-4 py-2 rounded-lg text-sm">Login</button>
+    <nav class="bg-white border-b sticky top-0 z-[1000] py-4">
+        <div class="max-w-6xl mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <div class="text-2xl font-black text-gray-900 tracking-tighter">Service<span class="text-blue-600">Pro</span></div>
+                <div class="hidden md:flex items-center gap-2 text-sm font-semibold text-gray-500 border-l pl-6">
+                    <i class="fa-solid fa-location-dot text-blue-600"></i>
+                    <span>Pune, Maharashtra</span>
+                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold text-gray-700 uppercase tracking-wide">
+                <a href="#" class="hover:text-blue-600">Blog</a>
+                <a href="#" class="hover:text-blue-600">Register as a Pro</a>
+                <a href="#" class="hover:text-blue-600">Login / Sign Up</a>
             </div>
         </div>
     </nav>
 
-    <div id="customer-page" class="page">
-        <section class="max-w-6xl mx-auto px-4 py-10">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8">Book a Professional</h2>
+    <header class="py-12 bg-white text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8">Home services, on demand.</h1>
+        <div class="max-w-2xl mx-auto px-4 relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-8 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input type="text" placeholder="Search for 'AC Repair'..." class="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 pb-32">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="info-card" onclick="startBooking('AC Repair', 29)">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-snowflake text-xl"></i>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-green-600 font-bold">$29</span>
-                            <p class="text-[10px] text-gray-400 uppercase">Fixed Price</p>
-                        </div>
+            <div class="uc-card" onclick="openTracking('AC Repair', '4.8', '29')">
+                <div class="uc-icon bg-blue-50 text-blue-600"><i class="fa-solid fa-snowflake"></i></div>
+                <div class="mt-4 text-center">
+                    <h3 class="font-bold text-gray-800">AC Repair</h3>
+                    <div class="flex items-center justify-center gap-1 mt-1">
+                        <span class="text-xs font-bold text-yellow-600">★ 4.8</span>
+                        <span class="text-[10px] text-gray-400">(12k)</span>
                     </div>
-                    <h3 class="font-bold text-gray-800">AC Power Checkup</h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.8</span>
-                        <span class="text-gray-400 text-xs">(12k reviews)</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 45 mins est. time</p>
-                </div>
-
-                <div class="info-card" onclick="startBooking('Cleaning', 55)">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-broom text-xl"></i>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-green-600 font-bold">$55</span>
-                            <p class="text-[10px] text-gray-400 uppercase">Fixed Price</p>
-                        </div>
-                    </div>
-                    <h3 class="font-bold text-gray-800">Full Home Cleaning</h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.9</span>
-                        <span class="text-gray-400 text-xs">(8k reviews)</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 3-4 hours est. time</p>
-                </div>
-
-                <div class="info-card" onclick="startBooking('Electrician', 15)">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-bolt text-xl"></i>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-green-600 font-bold">$15</span>
-                            <p class="text-[10px] text-gray-400 uppercase">Per Visit</p>
-                        </div>
-                    </div>
-                    <h3 class="font-bold text-gray-800">Switch & Socket Fix</h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.7</span>
-                        <span class="text-gray-400 text-xs">(15k reviews)</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 30 mins est. time</p>
-                </div>
-
-                <div class="info-card" onclick="startBooking('Plumbing', 20)">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">
-                            <i class="fa-solid fa-faucet text-xl"></i>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-green-600 font-bold">$20</span>
-                            <p class="text-[10px] text-gray-400 uppercase">Starts at</p>
-                        </div>
-                    </div>
-                    <h3 class="font-bold text-gray-800">Tap Repair / Leakage</h3>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-0.5 rounded font-bold">★ 4.6</span>
-                        <span class="text-gray-400 text-xs">(10k reviews)</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-4"><i class="fa-regular fa-clock mr-1"></i> 40 mins est. time</p>
                 </div>
             </div>
 
-            <div id="tracking-container" class="hidden mt-12">
-                <h2 class="text-xl font-bold mb-4">Live Tracking</h2>
-                <div id="map"></div>
+            <div class="uc-card" onclick="openTracking('Cleaning', '4.9', '45')">
+                <div class="uc-icon bg-green-50 text-green-600"><i class="fa-solid fa-broom"></i></div>
+                <div class="mt-4 text-center">
+                    <h3 class="font-bold text-gray-800">Cleaning</h3>
+                    <div class="flex items-center justify-center gap-1 mt-1">
+                        <span class="text-xs font-bold text-yellow-600">★ 4.9</span>
+                        <span class="text-[10px] text-gray-400">(25k)</span>
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
 
-    <div id="worker-reg-page" class="page hidden">
-        <section class="max-w-2xl mx-auto px-4 py-16">
-            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Join as a Professional</h2>
-                <p class="text-gray-500 mb-8">Earn money on your schedule. Share your location to get jobs.</p>
-                
-                <form id="worker-form" class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
+            <div class="uc-card" onclick="openTracking('Electrician', '4.7', '15')">
+                <div class="uc-icon bg-yellow-50 text-yellow-600"><i class="fa-solid fa-bolt"></i></div>
+                <div class="mt-4 text-center">
+                    <h3 class="font-bold text-gray-800">Electrician</h3>
+                    <div class="flex items-center justify-center gap-1 mt-1">
+                        <span class="text-xs font-bold text-yellow-600">★ 4.7</span>
+                        <span class="text-[10px] text-gray-400">(18k)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uc-card" onclick="openTracking('Plumbing', '4.6', '20')">
+                <div class="uc-icon bg-red-50 text-red-600"><i class="fa-solid fa-faucet"></i></div>
+                <div class="mt-4 text-center">
+                    <h3 class="font-bold text-gray-800">Plumbing</h3>
+                    <div class="flex items-center justify-center gap-1 mt-1">
+                        <span class="text-xs font-bold text-yellow-600">★ 4.6</span>
+                        <span class="text-[10px] text-gray-400">(10k)</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="tracking-drawer" class="fixed bottom-0 left-0 right-0 z-[2000] transform translate-y-full transition-transform duration-500 ease-in-out">
+        <div class="max-w-2xl mx-auto bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.15)] overflow-hidden border">
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto my-3"></div>
+            
+            <div class="px-6 pb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 id="tracking-service-name" class="text-xl font-bold text-gray-900">Service Tracking</h2>
+                        <p id="tracking-status" class="text-sm text-green-600 font-medium">Assigning a professional...</p>
+                    </div>
+                    <button onclick="closeTracking()" class="text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-circle-xmark"></i></button>
+                </div>
+
+                <div id="map" class="w-full h-64 rounded-2xl border"></div>
+
+                <div class="mt-4 flex items-center justify-between bg-gray-50 p-4 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white text-xl font-bold">JD</div>
                         <div>
-                            <label class="text-sm font-bold text-gray-700">Full Name</label>
-                            <input type="text" id="worker-name-input" placeholder="e.g. John Doe" class="w-full p-3 bg-gray-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label class="text-sm font-bold text-gray-700">Service Category</label>
-                            <select class="w-full p-3 bg-gray-50 border rounded-xl outline-none">
-                                <option>AC Repair</option>
-                                <option>Cleaning</option>
-                                <option>Electrician</option>
-                                <option>Plumbing</option>
-                            </select>
+                            <p class="text-xs text-gray-400 font-bold uppercase">Professional</p>
+                            <p class="font-bold text-gray-800" id="worker-name-display">John Doe</p>
                         </div>
                     </div>
-                    
-                    <div class="p-4 bg-blue-50 border border-blue-100 rounded-xl">
-                        <p class="text-sm text-blue-700 mb-4 font-medium"><i class="fa-solid fa-location-crosshairs mr-2"></i> To receive jobs, you must enable live tracking.</p>
-                        <button type="button" id="worker-start-gps" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold shadow-lg shadow-blue-200">Start Sharing Live Location</button>
-                    </div>
-
-                    <p id="worker-status" class="text-center text-sm font-bold text-gray-400 uppercase tracking-widest">Status: Offline</p>
-                </form>
+                    <button class="bg-black text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-phone"></i> Call
+                    </button>
+                </div>
             </div>
-        </section>
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
