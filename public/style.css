@@ -1,25 +1,46 @@
 /* Custom Service Cards */
-.service-card {
-    @apply flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 transition-all cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-1;
+/* Container for the Large Cards */
+.mega-card {
+    @apply relative bg-white rounded-3xl overflow-hidden cursor-pointer shadow-lg transition-all duration-300 border border-gray-100;
 }
 
-.icon-box {
-    @apply w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mb-4 transition-transform;
+.mega-card:hover {
+    @apply shadow-2xl -translate-y-2 border-blue-400;
 }
 
-.service-card:hover .icon-box {
-    transform: scale(1.1);
+/* Image Handling */
+.card-image-wrapper {
+    @apply relative h-56 w-full overflow-hidden;
 }
 
-.service-card p {
-    @apply font-semibold text-gray-700 text-sm;
+.card-image-wrapper img {
+    @apply w-full h-full object-cover transition-transform duration-500;
 }
 
-/* Map specific styling */
-#map {
-    z-index: 1;
+.mega-card:hover img {
+    @apply scale-110;
 }
 
+.overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60;
+}
+
+/* Text Content */
+.card-content {
+    @apply p-6;
+}
+
+.card-content h3 {
+    @apply text-xl font-bold text-gray-800 mb-1;
+}
+
+.card-content p {
+    @apply text-gray-500 text-sm mb-4;
+}
+
+.price-tag {
+    @apply inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full uppercase tracking-wider;
+}
 /* Ensure images don't break in Leaflet */
 .leaflet-container {
     font-family: inherit;
