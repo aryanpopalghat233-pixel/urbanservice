@@ -34,61 +34,60 @@
     </section>
 
 <main class="max-w-6xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900">Recommended Services</h2>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Available Services</h2>
     
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
         
-        <div class="medium-card group" onclick="startBooking('AC Repair')">
-            <div class="medium-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1590756254933-2873d72a83b6?auto=format&fit=crop&q=80&w=400" alt="AC">
+        <div class="logo-card group" onclick="startBooking('AC Repair')">
+            <div class="logo-wrapper bg-blue-50 text-blue-600">
+                <i class="fa-solid fa-snowflake text-3xl"></i>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-gray-800 text-sm">AC Repair</h3>
-                <p class="text-xs text-gray-500">Starts at $29</p>
-            </div>
+            <h3 class="font-bold text-gray-700 text-sm mt-3">AC Repair</h3>
+            <p class="text-xs text-gray-400">Expert cooling help</p>
         </div>
 
-        <div class="medium-card group" onclick="startBooking('Cleaning')">
-            <div class="medium-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?auto=format&fit=crop&q=80&w=400" alt="Cleaning">
+        <div class="logo-card group" onclick="startBooking('Cleaning')">
+            <div class="logo-wrapper bg-green-50 text-green-600">
+                <i class="fa-solid fa-broom text-3xl"></i>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-gray-800 text-sm">Home Cleaning</h3>
-                <p class="text-xs text-gray-500">Starts at $49</p>
-            </div>
+            <h3 class="font-bold text-gray-700 text-sm mt-3">Deep Cleaning</h3>
+            <p class="text-xs text-gray-400">Sparkling homes</p>
         </div>
 
-        <div class="medium-card group" onclick="startBooking('Electrician')">
-            <div class="medium-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=400" alt="Electrician">
+        <div class="logo-card group" onclick="startBooking('Electrician')">
+            <div class="logo-wrapper bg-yellow-50 text-yellow-600">
+                <i class="fa-solid fa-bolt text-3xl"></i>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-gray-800 text-sm">Electricians</h3>
-                <p class="text-xs text-gray-500">Starts at $19</p>
-            </div>
+            <h3 class="font-bold text-gray-700 text-sm mt-3">Electrician</h3>
+            <p class="text-xs text-gray-400">Wiring & Fixes</p>
         </div>
 
-        <div class="medium-card group" onclick="startBooking('Plumbing')">
-            <div class="medium-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=400" alt="Plumbing">
+        <div class="logo-card group" onclick="startBooking('Plumbing')">
+            <div class="logo-wrapper bg-red-50 text-red-600">
+                <i class="fa-solid fa-faucet-drip text-3xl"></i>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-gray-800 text-sm">Plumbing</h3>
-                <p class="text-xs text-gray-500">Starts at $25</p>
-            </div>
+            <h3 class="font-bold text-gray-700 text-sm mt-3">Plumbing</h3>
+            <p class="text-xs text-gray-400">Leak & Pipe repair</p>
         </div>
+
     </div>
 
-    <div id="tracking-container" class="hidden transition-all duration-500">
-        <h2 class="text-2xl font-bold mb-4">Live Tracking</h2>
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+    <div id="tracking-container" class="hidden">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">Live Professional Tracking</h2>
+            <button onclick="document.getElementById('tracking-container').classList.add('hidden')" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
             <div id="map"></div> 
-            <div class="p-4 bg-gray-50 border-t flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-gray-400 uppercase font-bold">Technician</p>
-                    <p class="font-bold text-blue-600" id="worker-name">Searching...</p>
+            <div class="p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">P</div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase">Assigned Pro</p>
+                        <p class="font-bold text-gray-800" id="worker-name">Locating...</p>
+                    </div>
                 </div>
-                <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-bold">Call Pro</button>
+                <button class="bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-lg hover:bg-blue-700">Call Now</button>
             </div>
         </div>
     </div>
