@@ -106,6 +106,48 @@ async function startBooking(serviceName, imageUrl) {
         }
     }
 }
+    const socket = io();
+let map;
+let workerMarker = null;
+
+// Initialize Map immediately, but handle size later
+function initMap() {
+    map = L.map('map').setView([20.5937, 78.9629], 5); 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+}
+
+initMap();
+
+function startBooking(service) {
+    const trackingBox = document.getElementById('tracking-container');
+    
+    // 1. Reveal the section
+    trackingBox.classList.remove('hidden');
+    
+    // 2. CRITICAL FIX: Tell Leaflet the map is now visible
+    // We use a small timeout to ensure the CSS transition is done
+    setTimeout(() => {
+        map.invalidateSize();
+        trackingBox.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+
+    document.getElementById('worker-name').innerText = `Finding Pro for ${service}...`;
+}
+
+// Listen for updates from the backend
+socket.on('location-broadcast', (data) => {
+    const pos = [data.lat, data.lng];
+    document.getElementById('worker-name').innerText = data.name;
+
+    if (!workerMarker) {
+        workerMarker = L.marker(pos).addTo(map);
+    } else {
+        workerMarker.setLatLng(pos);
+    }
+    map.setView(pos, 15);
+});
 });
 
 
