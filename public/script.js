@@ -1,43 +1,70 @@
 const socket = io();
-let map;
-let workerMarker = null;
+let map, workerMarker;
 
-// Initialize Map
+// Page Navigation Logic
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    if(pageId === 'customer') {
+        document.getElementById('customer-page').classList.remove('hidden');
+    } else if(pageId === 'worker-reg') {
+        document.getElementById('worker-reg-page').classList.remove('hidden');
+    }
+}
+
+// Map Initialization
 function initMap() {
-    map = L.map('map').setView([20.5937, 78.9629], 5); 
+    map = L.map('map').setView([20.5937, 78.9629], 5);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 }
 initMap();
 
-async function startBooking(service) {
-    // 1. Show the map section
-    const container = document.getElementById('tracking-container');
-    container.classList.remove('hidden');
-    
-    // 2. Update status text
-    document.getElementById('worker-name').innerText = `Finding a ${service} expert...`;
-
-    // 3. FIX: Force map to show correctly
-    setTimeout(() => {
-        map.invalidateSize();
-        container.scrollIntoView({ behavior: 'smooth' });
-    }, 200);
-
-    // 4. API Call (Optional - logic from previous step)
-    console.log(`Booking request sent for: ${service}`);
+// CUSTOMER LOGIC
+function startBooking(service, price) {
+    if(confirm(`Book ${service} for $${price}?`)) {
+        document.getElementById('tracking-container').classList.remove('hidden');
+        setTimeout(() => {
+            map.invalidateSize();
+            document.getElementById('tracking-container').scrollIntoView({behavior: 'smooth'});
+        }, 300);
+    }
 }
 
-// Real-time tracking from Worker
 socket.on('location-broadcast', (data) => {
     const pos = [data.lat, data.lng];
-    document.getElementById('worker-name').innerText = data.name;
-
     if (!workerMarker) {
-        workerMarker = L.marker(pos).addTo(map)
-            .bindPopup(`${data.name} is arriving!`).openPopup();
+        workerMarker = L.marker(pos).addTo(map).bindPopup(data.name + " is on the way!");
     } else {
         workerMarker.setLatLng(pos);
     }
     map.setView(pos, 15);
 });
 
+// WORKER LOGIC (Sharing Location Anytime)
+const gpsBtn = document.getElementById('worker-start-gps');
+const workerNameInput = document.getElementById('worker-name-input');
+const statusText = document.getElementById('worker-status');
+
+gpsBtn.addEventListener('click', () => {
+    const name = workerNameInput.value || "New Professional";
+    
+    if ("geolocation" in navigator) {
+        statusText.innerText = "Status: 🟢 ONLINE & SHARING LOCATION";
+        statusText.classList.replace('text-gray-400', 'text-green-600');
+        gpsBtn.innerText = "Tracking Active...";
+        gpsBtn.classList.replace('bg-blue-600', 'bg-green-600');
+
+        navigator.geolocation.watchPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            
+            // Emit to server
+            socket.emit('update-location', {
+                role: 'worker',
+                lat: latitude,
+                lng: longitude,
+                name: name
+            });
+        }, (err) => console.error(err), { enableHighAccuracy: true });
+    } else {
+        alert("GPS not supported by your browser.");
+    }
+});
