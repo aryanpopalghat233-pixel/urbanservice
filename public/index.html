@@ -33,63 +33,85 @@
         </div>
     </section>
 
-    <main class="max-w-6xl mx-auto px-4 py-12">
-        <h2 class="text-2xl font-bold mb-8">What are you looking for?</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-16">
-            <div class="service-card" onclick="startBooking('AC Repair')">
-                <div class="icon-box bg-blue-100 text-blue-600"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                <p>AC Repair</p>
+<main class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-extrabold mb-2 text-gray-900">Home services at your doorstep</h2>
+    <p class="text-gray-500 mb-10 text-lg">Trusted professionals for every household need.</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        
+        <div class="mega-card group" onclick="startBooking('AC Repair', 'https://images.unsplash.com/photo-1590756254933-2873d72a83b6?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1590756254933-2873d72a83b6?auto=format&fit=crop&q=80&w=500" alt="AC Repair">
+                <div class="overlay"></div>
             </div>
-            <div class="service-card" onclick="startBooking('Cleaning')">
-                <div class="icon-box bg-green-100 text-green-600"><i class="fa-solid fa-broom"></i></div>
-                <p>Cleaning</p>
-            </div>
-            <div class="service-card" onclick="startBooking('Electrician')">
-                <div class="icon-box bg-yellow-100 text-yellow-600"><i class="fa-solid fa-bolt"></i></div>
-                <p>Electrician</p>
-            </div>
-            <div class="service-card" onclick="startBooking('Plumbing')">
-                <div class="icon-box bg-red-100 text-red-600"><i class="fa-solid fa-faucet"></i></div>
-                <p>Plumbing</p>
-            </div>
-            <div class="service-card" onclick="startBooking('Painting')">
-                <div class="icon-box bg-purple-100 text-purple-600"><i class="fa-solid fa-paint-roller"></i></div>
-                <p>Painting</p>
-            </div>
-            <div class="service-card" onclick="startBooking('Appliance')">
-                <div class="icon-box bg-orange-100 text-orange-600"><i class="fa-solid fa-tv"></i></div>
-                <p>Appliance</p>
+            <div class="card-content">
+                <h3>AC Repair & Service</h3>
+                <p>Repairs, Gas Refills, and Installation</p>
+                <span class="price-tag">Starts at $29</span>
             </div>
         </div>
 
-        <div id="tracking-container" class="hidden">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-gray-800">Track Your Professional</h2>
-                <button onclick="closeTracking()" class="text-red-500 font-bold">Close Map</button>
+        <div class="mega-card group" onclick="startBooking('Home Cleaning', 'https://images.unsplash.com/photo-1581578731548-c64695cc6958?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?auto=format&fit=crop&q=80&w=500" alt="Cleaning">
+                <div class="overlay"></div>
             </div>
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border">
-                <div id="map" style="height: 500px; width: 100%;"></div>
-                <div class="p-6 bg-white flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold">JD</div>
-                        <div>
-                            <h4 class="font-bold text-lg" id="worker-name">Assigning...</h4>
-                            <p class="text-gray-500" id="status-text">Waiting for worker to start...</p>
-                        </div>
-                    </div>
-                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold"><i class="fa-solid fa-phone mr-2"></i> Call</button>
-                </div>
+            <div class="card-content">
+                <h3>Deep Home Cleaning</h3>
+                <p>Full house, Kitchen, or Bathroom cleaning</p>
+                <span class="price-tag">Starts at $49</span>
             </div>
         </div>
 
-        <div class="mt-12 p-6 bg-gray-100 rounded-xl border-2 border-dashed border-gray-300">
-            <p class="text-sm font-bold text-gray-500 mb-4">DEVELOPER CONTROLS</p>
-            <div class="flex flex-wrap gap-4">
-                <button id="start-worker" class="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-600">Simulate Worker Movement</button>
-                <button onclick="showTrackingSection()" class="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600">View Map (Customer)</button>
+        <div class="mega-card group" onclick="startBooking('Electrician', 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=500" alt="Electrician">
+                <div class="overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3>Electricians</h3>
+                <p>Wiring, Socket repair, and Lighting</p>
+                <span class="price-tag">Starts at $19</span>
             </div>
         </div>
-    </main>
+
+        <div class="mega-card group" onclick="startBooking('Plumbing', 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=500" alt="Plumbing">
+                <div class="overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3>Plumbing Services</h3>
+                <p>Leaking pipes, Taps, and Toilets</p>
+                <span class="price-tag">Starts at $25</span>
+            </div>
+        </div>
+
+        <div class="mega-card group" onclick="startBooking('Painting', 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=500" alt="Painting">
+                <div class="overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3>Home Painting</h3>
+                <p>Full walls, Touch-ups, and Waterproofing</p>
+                <span class="price-tag">Consultation Free</span>
+            </div>
+        </div>
+
+        <div class="mega-card group" onclick="startBooking('Salon', 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&q=80&w=500')">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&q=80&w=500" alt="Salon">
+                <div class="overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3>Salon & Massage</h3>
+                <p>Professional grooming at your home</p>
+                <span class="price-tag">Starts at $35</span>
+            </div>
+        </div>
+    </div>
+</main>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="/socket.io/socket.io.js"></script>
