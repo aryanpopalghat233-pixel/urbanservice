@@ -1,53 +1,62 @@
 const socket = io();
-const statusMsg = document.getElementById('status-bar');
+const statusText = document.getElementById('status-text');
+const workerNameDisplay = document.getElementById('worker-name');
+const trackingContainer = document.getElementById('tracking-container');
 
-// Initialize Map (Centered on a default location)
+// Initialize Map
 const map = L.map('map').setView([20.5937, 78.9629], 5); 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
 
 let workerMarker = null;
 
-// --- CUSTOMER LOGIC ---
+// UI Interactions
+function startBooking(service) {
+    alert(`Booking ${service}... Now let's open the tracking map.`);
+    showTrackingSection();
+}
+
+function showTrackingSection() {
+    trackingContainer.classList.remove('hidden');
+    trackingContainer.scrollIntoView({ behavior: 'smooth' });
+    map.invalidateSize(); // Refreshes Leaflet size if it was hidden
+}
+
+function closeTracking() {
+    trackingContainer.classList.add('hidden');
+}
+
+// SOCKET LOGIC
 socket.on('location-broadcast', (data) => {
-    statusMsg.innerText = `Update: ${data.name} is at ${data.lat.toFixed(4)}, ${data.lng.toFixed(4)}`;
+    workerNameDisplay.innerText = data.name;
+    statusText.innerText = "Professional is on the way!";
     
+    const pos = [data.lat, data.lng];
+
     if (!workerMarker) {
-        workerMarker = L.marker([data.lat, data.lng]).addTo(map)
-            .bindPopup(data.name + " (Worker)").openPopup();
+        workerMarker = L.marker(pos).addTo(map)
+            .bindPopup("Your Pro: " + data.name).openPopup();
     } else {
-        workerMarker.setLatLng([data.lat, data.lng]);
+        workerMarker.setLatLng(pos);
     }
-    map.setView([data.lat, data.lng], 15);
+    map.setView(pos, 15);
 });
 
-// --- WORKER LOGIC ---
+// WORKER SIMULATION
 document.getElementById('start-worker').addEventListener('click', () => {
     if ("geolocation" in navigator) {
-        statusMsg.innerText = "Tracking your location...";
+        alert("Worker simulation started. Your location will now be shared.");
         navigator.geolocation.watchPosition((position) => {
             const { latitude, longitude } = position.coords;
             
-            // Send to server
             socket.emit('update-location', {
                 role: 'worker',
                 lat: latitude,
                 lng: longitude,
-                name: 'Technician John'
+                name: 'Rajesh Kumar'
             });
-            
-            // Show on own map
-            if (!workerMarker) {
-                workerMarker = L.marker([latitude, longitude]).addTo(map);
-            }
-            workerMarker.setLatLng([latitude, longitude]);
-            map.setView([latitude, longitude], 15);
 
-        }, (err) => console.error(err), { enableHighAccuracy: true });
-    } else {
-        alert("Geolocation not supported");
+        }, (err) => alert("Error: " + err.message), { enableHighAccuracy: true });
     }
-});
-
-document.getElementById('view-customer').addEventListener('click', () => {
-    statusMsg.innerText = "Waiting for worker updates...";
 });
