@@ -1,15 +1,14 @@
 {
-  "name": "home-services-live-tracker",
+  "name": "homeservice-pro-backend",
   "version": "1.0.0",
-  "description": "Full-stack home service tracker",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1"
-  },
-  "scripts": {
-    "start": "node server.js"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.0",
+    "socket.io": "^4.7.2"
   }
 }
